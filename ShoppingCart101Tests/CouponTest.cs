@@ -46,55 +46,5 @@ namespace ShoppingCart101Tests
         {
             Assert.Throws<CustomValidationException>(() => new AmountCoupon("Coupon", 2, discountAmount));
         }
-
-        //[Test]
-        //[TestCase("CouponTest", TestName = "AddCoupon")]
-        //public void AddCoupon(string CouponName)
-        //{
-        //    var Coupon = new Coupon(CouponName);
-
-        //    Assert.DoesNotThrow(() => _couponService.AddCoupon(Coupon));
-        //}
-
-        //[Test]
-        //[TestCase(3, TestName = "AddMultipleCoupon")]
-        //public void AddMultipleCoupon(int CouponCount)
-        //{
-        //    for (int i = 0; i < CouponCount; i++)
-        //    {
-        //        _couponService.AddCoupon(new Coupon($"CouponName_{i}"));
-        //    }
-
-        //    Assert.AreEqual(CouponCount, _couponService.GetCategories().Count);
-        //}
-
-        //[Test]
-        //[TestCase(3, TestName = "AddSameCoupon_Fails")]
-        //public void AddSameCoupon(int CouponCount)
-        //{
-        //    var Coupon = new Coupon($"CouponName");
-
-        //    Assert.Throws<Exception>(() => AddSameCouponDelegate(Coupon, CouponCount));
-        //}
-
-        //[Test]
-        //[TestCase("CouponTest", TestName = "GetCategories")]
-        //public void GetCategories(string CouponName)
-        //{
-        //    var Coupon = new Coupon(CouponName);
-        //    _couponService.AddCoupon(Coupon);
-
-        //    Assert.IsTrue(_couponService.GetCategories().Count > 0);
-        //}
-
-        //#region Delegate Methods
-        //void AddSameCouponDelegate(Coupon Coupon, int CouponCount)
-        //{
-        //    for (int i = 0; i < CouponCount; i++)
-        //    {
-        //        _couponService.AddCoupon(Coupon);
-        //    }
-        //}
-        //#endregion
     }
 }

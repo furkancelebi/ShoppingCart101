@@ -35,14 +35,14 @@ namespace ShoppingCart101
             carts.Add(CartHelper.Cart1());
             carts.Add(CartHelper.Cart2());
             carts.Add(CartHelper.Cart3());
-            PrintHelper.Print(carts);
+            carts.Print();
         }
 
         private void CreateCategories()
         {
             _categoryService.AddCategory(CategoryHelper.GetBookCategory());
             _categoryService.AddCategory(CategoryHelper.GetDVDCategory());
-            PrintHelper.Print(_categoryService.GetCategories());
+            _categoryService.GetCategories().Print();
         }
 
         private void CreateCoupons()
@@ -50,7 +50,7 @@ namespace ShoppingCart101
             _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.AmountCoupon5For50));
             _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.AmountCoupon50For300));
             _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.RateCoupon10For150));
-            PrintHelper.Print(_couponService.GetCoupons());
+            _couponService.GetCoupons().Print();
         }
 
         private void CreateCart()

@@ -7,7 +7,7 @@ namespace ShoppingCart101.Helper
 {
     public static class PrintHelper
     {
-        public static void Print(List<Coupon> coupons)
+        public static void Print(this List<Coupon> coupons)
         {
             PrintLine($"Creating coupons", PrintType.Level1);
 
@@ -19,7 +19,7 @@ namespace ShoppingCart101.Helper
             PrintSeperatorLine();
         }
 
-        public static void Print(List<Category> categories)
+        public static void Print(this List<Category> categories)
         {
             foreach (var category in categories)
             {
@@ -35,7 +35,7 @@ namespace ShoppingCart101.Helper
             PrintSeperatorLine();
         }
 
-        public static void Print(Cart cart)
+        public static void Print(this Cart cart)
         {
             var cartCategories = cart.GetCartCategories();
 
@@ -63,11 +63,11 @@ namespace ShoppingCart101.Helper
             PrintLine($"Total Amount           : {cart.GetCartTotalAmountAfterDiscounts()}", PrintType.Level1);
         }
 
-        internal static void Print(List<Cart> carts)
+        internal static void Print(this List<Cart> carts)
         {
             foreach (var cart in carts)
             {
-                Print(cart);
+                cart.Print();
                 PrintSeperatorLine();
             }
         }
