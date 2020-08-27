@@ -9,9 +9,13 @@ namespace ShoppingCart101
     class CartDemo
     {
         private readonly ICategoryService _categoryService;
-        public CartDemo(ICategoryService categoryService)
+
+        private readonly ICouponService _couponService;
+
+        public CartDemo(ICategoryService categoryService, ICouponService couponService)
         {
             _categoryService = categoryService;
+            _couponService = couponService;
         }
 
         public void Run()
@@ -20,18 +24,18 @@ namespace ShoppingCart101
             PrintHelper.PrintBlankLine(2);
 
             CreateCategories();
-
+            CreateCoupons();
             CreateCarts();
         }
 
         private void CreateCarts()
         {
-            var hede = new List<Cart>();
+            var carts = new List<Cart>();
 
-            hede.Add(CartHelper.Cart1());
-            hede.Add(CartHelper.Cart2());
-            hede.Add(CartHelper.Cart3());
-            PrintHelper.Print(hede);
+            carts.Add(CartHelper.Cart1());
+            carts.Add(CartHelper.Cart2());
+            carts.Add(CartHelper.Cart3());
+            PrintHelper.Print(carts);
         }
 
         private void CreateCategories()
@@ -39,6 +43,14 @@ namespace ShoppingCart101
             _categoryService.AddCategory(CategoryHelper.GetBookCategory());
             _categoryService.AddCategory(CategoryHelper.GetDVDCategory());
             PrintHelper.Print(_categoryService.GetCategories());
+        }
+
+        private void CreateCoupons()
+        {
+            _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.AmountCoupon5For50));
+            _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.AmountCoupon50For300));
+            _couponService.AddCoupon(CouponHelper.GetCoupon(CouponTypeEnum.RateCoupon10For150));
+            PrintHelper.Print(_couponService.GetCoupons());
         }
 
         private void CreateCart()

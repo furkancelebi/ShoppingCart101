@@ -7,15 +7,27 @@ namespace ShoppingCart101.Helper
 {
     public static class PrintHelper
     {
+        public static void Print(List<Coupon> coupons)
+        {
+            PrintLine($"Creating coupons", PrintType.Level1);
+
+            foreach (var coupon in coupons)
+            {
+                PrintLine($"'{coupon.Description}' created", PrintType.Level2);
+            }
+
+            PrintSeperatorLine();
+        }
+
         public static void Print(List<Category> categories)
         {
             foreach (var category in categories)
             {
-                PrintLine($"{category.Title} created", PrintType.Level1);
+                PrintLine($"'{category.Title}' created", PrintType.Level1);
 
                 foreach (var campaign in category.Campaigns)
                 {
-                    PrintLine($"{campaign.Description} applied to {category.Title}", PrintType.Level2);
+                    PrintLine($"'{campaign.Description}' applied to {category.Title}", PrintType.Level2);
                 }
                 PrintBlankLine();
             }
@@ -44,8 +56,11 @@ namespace ShoppingCart101.Helper
                 PrintBlankLine();
             }
 
-            PrintLine($"Delivery Cost      : {cart.GetDeliveryCost()}", PrintType.Level1);
-            PrintLine($"Payment Amount     : {cart.GetCartTotalAmountAfterDiscounts()}", PrintType.Level1);
+            PrintLine($"Total Cart Amount      : {cart.GetCartTotalAmount()}", PrintType.Level1);
+            PrintLine($"Total Campaign Amount  : {cart.GetCampaignDiscount()}", PrintType.Level1);
+            PrintLine($"Coupon Applied Amount  : {cart.GetCouponDiscount()}", PrintType.Level1);
+            PrintLine($"Delivery Cost          : {cart.GetDeliveryCost()}", PrintType.Level1);
+            PrintLine($"Total Amount           : {cart.GetCartTotalAmountAfterDiscounts()}", PrintType.Level1);
         }
 
         internal static void Print(List<Cart> carts)

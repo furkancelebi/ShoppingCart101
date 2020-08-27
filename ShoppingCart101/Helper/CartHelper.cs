@@ -21,6 +21,7 @@ namespace ShoppingCart101.Helper
             cart.AddItem(new CartItem(ProductHelper.GetProduct("Before Sunrise", ProductTypeEnum.ProductPrice50, category), 1));
             cart.AddItem(new CartItem(ProductHelper.GetProduct("Before Sunset", ProductTypeEnum.ProductPrice50, category), 1));
 
+
             return cart;
         }
 
@@ -39,6 +40,7 @@ namespace ShoppingCart101.Helper
             cart.AddItem(new CartItem(ProductHelper.GetProduct("Ahlat Ağacı", ProductTypeEnum.ProductPrice50, category), 1));
             cart.AddItem(new CartItem(ProductHelper.GetProduct("Kader", ProductTypeEnum.ProductPrice50, category), 1));
 
+            cart.ApplyCoupon(CouponHelper.GetCoupon(CouponTypeEnum.RateCoupon10For150));
             return cart;
         }
 
@@ -49,6 +51,8 @@ namespace ShoppingCart101.Helper
             //Add DVD
             var category = CategoryHelper.GetDVDCategory();
             cart.AddItem(new CartItem(ProductHelper.GetProduct("Old Boy", ProductTypeEnum.ProductPrice50, category), 1));
+
+            cart.ApplyCoupon(CouponHelper.GetCoupon(CouponTypeEnum.AmountCoupon5For50));
 
             return cart;
         }

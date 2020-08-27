@@ -17,9 +17,11 @@ namespace ShoppingCart101Tests
                 .AddSingleton<IProductService, ProductService>()
                 .AddSingleton<ICartService, CartService>()
                 .AddSingleton<IDeliveryService, DeliveryService>()
+                .AddSingleton<ICouponService, CouponService>()
                 .AddSingleton<ICategoryRepository, CategoryRepository>()
                 .AddSingleton<IProductRepository, ProductRepository>()
-                .AddSingleton<ICartRepository, CartRepository>();
+                .AddSingleton<ICartRepository, CartRepository>()
+                .AddSingleton<ICouponRepository, CouponRepository>();
         }
     }
 }

@@ -30,4 +30,11 @@ namespace Infrastructure.Models
         ProductPrice50,
         ProductPrice250
     }
+
+    public enum CouponTypeEnum
+    {
+        AmountCoupon5For50,
+        AmountCoupon50For300,
+        RateCoupon10For150
+    }
 }
