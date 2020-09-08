@@ -26,6 +26,8 @@ namespace Infrastructure.Models
 
     public enum ProductTypeEnum
     {
+        ProductPrice2,
+        ProductPrice5,
         ProductPrice10,
         ProductPrice50,
         ProductPrice250

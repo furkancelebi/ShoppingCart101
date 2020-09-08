@@ -11,6 +11,10 @@ namespace ShoppingCart101Tests.Helper
         {
             switch (productTypeEnum)
             {
+                case ProductTypeEnum.ProductPrice2:
+                    return new Product("ProductPrice2", 2, category);
+                case ProductTypeEnum.ProductPrice5:
+                    return new Product("ProductPrice5", 5, category);
                 case ProductTypeEnum.ProductPrice10:
                     return new Product("ProductPrice10", 10, category);
                 case ProductTypeEnum.ProductPrice50:

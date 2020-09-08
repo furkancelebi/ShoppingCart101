@@ -73,40 +73,40 @@ namespace ShoppingCart101Tests
         }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "GetCartTotalAmount_1180", ExpectedResult = 1180)]
-        [TestCase(1, 0, 1, TestName = "GetCartTotalAmount_60", ExpectedResult = 60)]
-        public double GetCartTotalAmount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "GetCartTotalAmount_1180", ExpectedResult = 1180)]
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 1, 0, 1, TestName = "GetCartTotalAmount_60", ExpectedResult = 60)]
+        public double GetCartTotalAmount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
 
             return cart.GetCartTotalAmount();
         }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "GetCampaignDiscount", ExpectedResult = 236)]
-        public double GetCampaignDiscount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "GetCampaignDiscount", ExpectedResult = 236)]
+        public double GetCampaignDiscount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
 
             return cart.GetCampaignDiscount();
         }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "GetCartAmountAfterCampaignDiscount", ExpectedResult = 944)]
-        public double GetCartAmountAfterCampaignDiscount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "GetCartAmountAfterCampaignDiscount", ExpectedResult = 944)]
+        public double GetCartAmountAfterCampaignDiscount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
 
             return cart.GetCartAmountAfterCampaignDiscount();
         }
 
         [Test]
-        [TestCase(3, 4, 3, true, TestName = "GetRateCouponDiscountAmount_188_8", ExpectedResult = 188.8)]
-        [TestCase(3, 4, 3, false, TestName = "GetDiscountAmount_WithoutCOupon", ExpectedResult = 0)]
-        [TestCase(1, 0, 0, true, TestName = "GetRateCouponDiscountAmount_0", ExpectedResult = 0)]
-        public double GetCouponDiscount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity, bool applyCoupon)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, true, TestName = "GetRateCouponDiscountAmount_188_8", ExpectedResult = 188.8)]
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, false, TestName = "GetDiscountAmount_WithoutCOupon", ExpectedResult = 0)]
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 1, 0, 0, true, TestName = "GetRateCouponDiscountAmount_0", ExpectedResult = 0)]
+        public double GetCouponDiscount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity, bool applyCoupon)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
             if (applyCoupon)
             {
                 Coupon coupon = new RateCoupon("100 TL üzeri %20 İndirim", 100, 20);
@@ -116,21 +116,36 @@ namespace ShoppingCart101Tests
             return cart.GetCouponDiscount();
         }
 
+        [Test]
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, true, TestName = "GetCartTotalAmountAfterDiscounts_WithCoupon", ExpectedResult = 755.2)]
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, false, TestName = "GetCartTotalAmountAfterDiscounts_NoCoupon", ExpectedResult = 944)]
+        [TestCase(CartHelper.CartExamples.CartWith1Product1CategoryAmountCampaign, 5, 0, 0, false, TestName = "GetCartTotalAmountAfterDiscounts_NoCoupon_NegativeAmount", ExpectedResult = 0)]
+        public double GetCartTotalAmountAfterDiscounts(CartHelper.CartExamples cartExample, int productFirstQuantity, int productSecondQuantity, int productThirdQuantity, bool applyCoupon)
+        {
+            Cart cart = CartHelper.GetCart(cartExample, productFirstQuantity, productSecondQuantity, productThirdQuantity);
+            if (applyCoupon)
+            {
+                Coupon coupon = new RateCoupon("100 TL üzeri %20 İndirim", 100, 20);
+                cart.ApplyCoupon(coupon);
+            }
+
+            return cart.GetCartTotalAmountAfterDiscounts();
+        }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "GetCategoryCount", ExpectedResult = 2)]
-        public double GetCategoryCount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "GetCategoryCount", ExpectedResult = 2)]
+        public double GetCategoryCount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
 
             return cart.CategoryCount;
         }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "GetProductCount", ExpectedResult = 3)]
-        public double GetProductCount(int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "GetProductCount", ExpectedResult = 3)]
+        public double GetProductCount(CartHelper.CartExamples cartExample, int productPrice10Quantity, int productPrice250Quantity, int productPrice50Quantity)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
+            Cart cart = CartHelper.GetCart(cartExample, productPrice10Quantity, productPrice250Quantity, productPrice50Quantity);
 
             return cart.ProductCount;
         }

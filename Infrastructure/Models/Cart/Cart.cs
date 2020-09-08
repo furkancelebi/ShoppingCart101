@@ -55,7 +55,7 @@ namespace Infrastructure.Models
 
         public double GetCartTotalAmountAfterDiscounts()
         {
-            return GetCartAmountAfterCampaignDiscount() - GetCouponDiscount();
+            return Math.Max(GetCartAmountAfterCampaignDiscount() - GetCouponDiscount(), 0);
         }
 
         public double GetDeliveryCost()
@@ -78,13 +78,13 @@ namespace Infrastructure.Models
                    category = y.Key,
                    categoryTotalAmount = y.Sum(t => t.Product.Price * t.Quantity),
                    categoryTotalItemCount = y.Sum(t => t.Quantity),
-                   products = y.Select(t=> new CartItem(t.Product, t.Quantity)).ToList()
+                   products = y.Select(t => new CartItem(t.Product, t.Quantity)).ToList()
                });
         }
 
         public double GetCartAmountAfterCampaignDiscount()
         {
-            return GetCartTotalAmount() - GetCampaignDiscount();
+            return Math.Max(GetCartTotalAmount() - GetCampaignDiscount(), 0);
         }
 
         public int CategoryCount

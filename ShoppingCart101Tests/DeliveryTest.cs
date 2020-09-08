@@ -24,10 +24,10 @@ namespace ShoppingCart101Tests
         }
 
         [Test]
-        [TestCase(3, 4, 3, TestName = "CalculateDeliveryCost", ExpectedResult = 9.99)]
-        public double CalculateDeliveryCost(int quantity1, int quantity2, int quantity3)
+        [TestCase(CartHelper.CartExamples.CartWith3Products2CategoriesWithCampaign, 3, 4, 3, TestName = "CalculateDeliveryCost", ExpectedResult = 9.99)]
+        public double CalculateDeliveryCost(CartHelper.CartExamples cartExample, int quantity1, int quantity2, int quantity3)
         {
-            Cart cart = CartHelper.CartWith3Products2CategoriesWithCampaign(quantity1, quantity2, quantity3);
+            Cart cart = CartHelper.GetCart(cartExample, quantity1, quantity2, quantity3);
 
             return _deliveryService.CalculateDeliveryCost(cart);
         }
